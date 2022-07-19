@@ -12,7 +12,7 @@ void main() {
 }
 
 class DashApp extends StatefulWidget {
-  //const DashApp({Key? key}) : super(key: key);
+  const DashApp({Key? key}) : super(key: key);
 
   @override
   State<DashApp> createState() => _DashAppState();
