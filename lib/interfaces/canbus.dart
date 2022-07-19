@@ -6,16 +6,15 @@ import 'package:dashboard/models/utils.dart';
 import '../models/canbus_devices.dart';
 
 class CanConnection {
-  final List<Process> _process = [];
+  Process _process;
   final Channel channel;
 
   CanConnection({this.channel});
 
   Future<Stream<String>> get lines async {
-    _process.add(await Process.start(
-        'candump', ["-l", "-L", "-s", "0", channel.toShortString()]));
-    return _process[0]
-        .stdout
+    _process = await Process.start(
+        'candump', ["-l", "-L", "-s", "0", channel.toShortString()]);
+    return _process.stdout
         .transform(utf8.decoder)
         .transform(const LineSplitter());
   }
@@ -27,6 +26,6 @@ class CanConnection {
   }
 
   void close() {
-    _process[0].kill();
+    _process.kill();
   }
 }
