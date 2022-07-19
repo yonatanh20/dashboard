@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:dashboard/interfaces/logger.dart';
+import 'package:dashboard/widgets/battery-widget.dart';
+import 'package:dashboard/widgets/indicator-widget.dart';
 import 'package:flutter/material.dart';
-import 'package:async/async.dart';
-import 'package:syncfusion_flutter_gauges/gauges.dart';
-
-import '../providers/frame-provider.dart';
-import '../widgets/speedometer.dart';
+import '../widgets/speedometer-widget.dart';
 
 /// Represents MyHomePage class
 class DashScreen extends StatefulWidget {
@@ -26,8 +22,7 @@ class _DashScreenState extends State<DashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Dashboard')), body: _homeScreen());
+    return Scaffold(body: _homeScreen());
   }
 
   Widget _homeScreen() {
@@ -42,16 +37,25 @@ class _DashScreenState extends State<DashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("data"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Battery(),
+              ),
+              Container(
+                  child: GridView.count(
+                scrollDirection: Axis.vertical,
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(20.0),
                 children: [
-                  Text("data"),
-                  Text("data"),
-                  Text("data"),
-                  Text("data"),
+                  Indicator(),
+                  Indicator(),
+                  Indicator(),
+                  Indicator(),
                 ],
-              )
+              ))
             ],
           ),
         )

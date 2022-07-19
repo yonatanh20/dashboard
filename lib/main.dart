@@ -44,8 +44,8 @@ class _DashAppState extends State<DashApp> {
         child: MaterialApp(
           title: 'Dashboard',
           theme: ThemeData(
-            primarySwatch: Colors.orange,
-            canvasColor: Color.fromARGB(255, 255, 210, 147),
+            primarySwatch: Colors.amber,
+            canvasColor: Colors.amber.shade50,
             fontFamily: 'Raleway',
           ),
           home: DashScreen(),

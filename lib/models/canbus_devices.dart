@@ -89,8 +89,11 @@ class CanBusDevice {
       CanBusData.frameData.oilPressure = (data[6] << 8) + data[7];
     },
   });
-  static final CanBusDevice bms = CanBusDevice(
-      actions: {0x133: (Channel channel, int id, List<int> data) {}});
+  static final CanBusDevice bms = CanBusDevice(actions: {
+    0x133: (Channel channel, int id, List<int> data) {
+      CanBusData.frameData.stateOfCharge = (data[0] << 8) + data[1];
+    }
+  });
   static final CanBusDevice lv = CanBusDevice(
       actions: {0x252: (Channel channel, int id, List<int> data) {}});
   static final CanBusDevice imu = CanBusDevice(

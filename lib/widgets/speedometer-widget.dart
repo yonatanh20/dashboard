@@ -20,7 +20,9 @@ class Speedometer extends StatelessWidget {
             maximum: 120,
             radiusFactor: 0.8,
             axisLineStyle: AxisLineStyle(
-                thickness: 15, thicknessUnit: GaugeSizeUnit.logicalPixel),
+                thickness: 15,
+                thicknessUnit: GaugeSizeUnit.logicalPixel,
+                color: Theme.of(context).primaryColorDark),
             pointers: <GaugePointer>[
               NeedlePointer(
                 value: (value.inverterRRPM + value.inverterLRPM) * 0.1941,
@@ -44,20 +46,15 @@ class Speedometer extends StatelessWidget {
           showLabels: false,
           showTicks: false,
           axisLineStyle: AxisLineStyle(
-              thickness: 10, thicknessUnit: GaugeSizeUnit.logicalPixel),
+              thickness: 10,
+              thicknessUnit: GaugeSizeUnit.logicalPixel,
+              color: Theme.of(context).primaryColorDark),
           startAngle: 90 + angleFromButtom,
           endAngle: 270 - angleFromTop,
           pointers: [
             RangePointer(
               value: value.gas.toDouble(),
-              gradient: const SweepGradient(
-                colors: <Color>[
-                  Colors.red,
-                ],
-                stops: <double>[
-                  0,
-                ],
-              ),
+              color: Theme.of(context).highlightColor,
               dashArray: <double>[16, 4],
               width: 15,
             )
@@ -70,7 +67,9 @@ class Speedometer extends StatelessWidget {
           showTicks: false,
           isInversed: true,
           axisLineStyle: AxisLineStyle(
-              thickness: 10, thicknessUnit: GaugeSizeUnit.logicalPixel),
+              thickness: 10,
+              thicknessUnit: GaugeSizeUnit.logicalPixel,
+              color: Theme.of(context).primaryColorDark),
           startAngle: 270 + angleFromTop,
           endAngle: 90 - angleFromButtom,
           pointers: [
@@ -78,15 +77,8 @@ class Speedometer extends StatelessWidget {
               value: value.breaking.toDouble(),
               dashArray: <double>[16, 4],
               width: 15,
-              gradient: const SweepGradient(
-                colors: <Color>[
-                  Color.fromARGB(255, 0, 94, 201),
-                ],
-                stops: <double>[
-                  0,
-                ],
-              ),
-            )
+              color: Theme.of(context).highlightColor,
+            ),
           ],
         )
       ]),
