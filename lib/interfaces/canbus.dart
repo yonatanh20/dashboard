@@ -6,10 +6,10 @@ import 'package:dashboard/models/utils.dart';
 import '../models/canbus_devices.dart';
 
 class CanConnection {
-  late final Process _process;
+  Process _process;
   final Channel channel;
 
-  CanConnection({required this.channel});
+  CanConnection({this.channel});
 
   Future<Stream<String>> get lines async {
     _process = await Process.start(
@@ -20,9 +20,7 @@ class CanConnection {
   }
 
   static Future<void> sendFrame(
-      {required Channel channel,
-      required int id,
-      required List<int> data}) async {
+      {Channel channel, int id, List<int> data}) async {
     String stringData = data.map((e) => e.toRadixString(16)).join();
     await Process.run('cansend', [channel.toShortString(), '$id#$stringData']);
   }
