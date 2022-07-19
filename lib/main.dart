@@ -8,11 +8,11 @@ import 'providers/frame-provider.dart';
 import 'screens/dash-screen.dart';
 
 void main() {
-  return runApp(const DashApp());
+  return runApp(DashApp());
 }
 
 class DashApp extends StatefulWidget {
-  const DashApp({Key? key}) : super(key: key);
+  //const DashApp({Key? key}) : super(key: key);
 
   @override
   State<DashApp> createState() => _DashAppState();
@@ -22,7 +22,7 @@ class _DashAppState extends State<DashApp> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(seconds: 2));
       CanBusData.start();
     });

@@ -11,7 +11,7 @@ import '../widgets/speedometer.dart';
 /// Represents MyHomePage class
 class DashScreen extends StatefulWidget {
   /// Creates the instance of MyHomePage
-  const DashScreen({Key? key}) : super(key: key);
+  //const DashScreen({Key? key}) : super(key: key);
 
   @override
   _DashScreenState createState() => _DashScreenState();

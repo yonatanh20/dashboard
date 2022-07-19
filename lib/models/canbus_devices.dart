@@ -8,7 +8,8 @@ enum Channel { can0, can1, unkown }
 class CanBusDevice {
   final Map<int, Function(Channel, int, List<int>)> actions;
 
-  CanBusDevice({required this.actions});
+  //CanBusDevice({required this.actions});
+  CanBusDevice({this.actions});
   static final List<CanBusDevice> devices = [
     ecu,
     inverterLeft,

@@ -5,7 +5,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class Speedometer extends StatelessWidget {
   const Speedometer({
-    Key? key,
+    Key key,
   }) : super(key: key);
 
   final double angleFromTop = 30;
@@ -19,7 +19,7 @@ class Speedometer extends StatelessWidget {
             minimum: 0,
             maximum: 120,
             radiusFactor: 0.8,
-            axisLineStyle: const AxisLineStyle(
+            axisLineStyle: AxisLineStyle(
                 thickness: 15, thicknessUnit: GaugeSizeUnit.logicalPixel),
             pointers: <GaugePointer>[
               NeedlePointer(
@@ -43,7 +43,7 @@ class Speedometer extends StatelessWidget {
           maximum: 1000,
           showLabels: false,
           showTicks: false,
-          axisLineStyle: const AxisLineStyle(
+          axisLineStyle: AxisLineStyle(
               thickness: 10, thicknessUnit: GaugeSizeUnit.logicalPixel),
           startAngle: 90 + angleFromButtom,
           endAngle: 270 - angleFromTop,
@@ -69,7 +69,7 @@ class Speedometer extends StatelessWidget {
           showLabels: false,
           showTicks: false,
           isInversed: true,
-          axisLineStyle: const AxisLineStyle(
+          axisLineStyle: AxisLineStyle(
               thickness: 10, thicknessUnit: GaugeSizeUnit.logicalPixel),
           startAngle: 270 + angleFromTop,
           endAngle: 90 - angleFromButtom,

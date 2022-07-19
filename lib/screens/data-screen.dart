@@ -8,7 +8,7 @@ import '../providers/frame-provider.dart';
 /// Represents MyHomePage class
 class DashScreen extends StatefulWidget {
   /// Creates the instance of MyHomePage
-  const DashScreen({Key? key}) : super(key: key);
+  //const DashScreen({Key? key}) : super(key: key);
 
   @override
   _DashScreenState createState() => _DashScreenState();
@@ -21,7 +21,7 @@ class _DashScreenState extends State<DashScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(seconds: 2));
       CanBusData.start();
     });
