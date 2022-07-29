@@ -7,7 +7,7 @@ class ComplexProvider with ChangeNotifier {
     required this.values,
   });
 
-  void updateData(String key, dynamic newVal) {
+  void updateData(dynamic key, dynamic newVal) {
     if (newVal != values[key]) {
       values[key] = newVal;
       notifyListeners();

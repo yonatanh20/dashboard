@@ -1,9 +1,10 @@
-import 'package:dashboard/providers/frame-provider.dart';
+import 'package:dashboard/providers/complex-provider.dart';
+import 'package:dashboard/providers/single-provider.dart';
 
 enum Channel { can0, can1, unkown }
 
 class CanBusDevice {
-  final Map<int, Function(Channel, int, List<int>)> actions;
+  final Map<int, void Function(Channel, int, List<int>)> actions;
 
   CanBusDevice({required this.actions});
   static final List<CanBusDevice> devices = [
@@ -20,19 +21,20 @@ class CanBusDevice {
 
   static final CanBusDevice ecu = CanBusDevice(actions: {
     0x20: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.errorState = data.length == 1 ? data[0] : 777;
+      (defaultProviders[ErrorState] as ErrorState)
+          .updateData(data.length >= 1 ? data[0] : 777);
     },
     0x101: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.drivingState = 0;
+      (defaultProviders[DrivingState] as DrivingState).updateData(0);
     },
     0x102: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.drivingState = 1;
+      (defaultProviders[DrivingState] as DrivingState).updateData(1);
     },
     0x103: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.drivingState = 2;
+      (defaultProviders[DrivingState] as DrivingState).updateData(2);
     },
     0x104: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.drivingState = 3;
+      (defaultProviders[DrivingState] as DrivingState).updateData(3);
     },
   });
   static final CanBusDevice inverterLeft = CanBusDevice(actions: {
@@ -40,14 +42,18 @@ class CanBusDevice {
       if (channel == Channel.can1) return;
       switch (data[0]) {
         case 0x30:
-          FrameData.defaultFrame.inverterLRPM = (data[2] << 8) + data[1];
+          (defaultProviders[SpeedometerProvider] as SpeedometerProvider)
+              .updateData(
+                  SpeedometerKeys.inverterLRPM, (data[2] << 8) + data[1]);
           break;
         case 0x49:
-          FrameData.defaultFrame.inverterLMotorTemp = (data[2] << 8) + data[1];
+          (defaultProviders[InverterLMotorTemp] as InverterLMotorTemp)
+              .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
         case 0x4A:
-          FrameData.defaultFrame.inverterLTemp = (data[2] << 8) + data[1];
+          (defaultProviders[InverterLTemp] as InverterLTemp)
+              .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
         default:
@@ -59,14 +65,18 @@ class CanBusDevice {
       if (channel == Channel.can1) return;
       switch (data[0]) {
         case 0x30:
-          FrameData.defaultFrame.inverterRRPM = (data[2] << 8) + data[1];
+          (defaultProviders[SpeedometerProvider] as SpeedometerProvider)
+              .updateData(
+                  SpeedometerKeys.inverterRRPM, (data[2] << 8) + data[1]);
           break;
         case 0x49:
-          FrameData.defaultFrame.inverterRMotorTemp = (data[2] << 8) + data[1];
+          (defaultProviders[InverterRMotorTemp] as InverterRMotorTemp)
+              .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
         case 0x4A:
-          FrameData.defaultFrame.inverterRTemp = (data[2] << 8) + data[1];
+          (defaultProviders[InverterRTemp] as InverterRTemp)
+              .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
         default:
@@ -76,26 +86,31 @@ class CanBusDevice {
   static final CanBusDevice driverNode = CanBusDevice(actions: {
     0x50: (Channel channel, int id, List<int> data) {
       if (channel == Channel.can1) return;
-      FrameData.defaultFrame.heatEvac = data[1];
+      (defaultProviders[HeatEvac] as HeatEvac).updateData(data[1]);
       //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
     },
   });
   static final CanBusDevice pedal = CanBusDevice(actions: {
     0x30: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.gas = (data[0] << 8) + data[1];
-      FrameData.defaultFrame.breaking = (data[2] << 8) + data[3];
-      FrameData.defaultFrame.steeringAngle = (data[4] << 8) + data[5];
-      FrameData.defaultFrame.oilPressure = (data[6] << 8) + data[7];
+      (defaultProviders[SpeedometerProvider] as SpeedometerProvider)
+          .updateData(SpeedometerKeys.gas, (data[0] << 8) + data[1]);
+      (defaultProviders[SpeedometerProvider] as SpeedometerProvider)
+          .updateData(SpeedometerKeys.breaking, (data[2] << 8) + data[3]);
+      (defaultProviders[SteeringAngle] as SteeringAngle)
+          .updateData((data[4] << 8) + data[5]);
+      (defaultProviders[OilPressure] as OilPressure)
+          .updateData((data[6] << 8) + data[7]);
     },
   });
   static final CanBusDevice bms = CanBusDevice(actions: {
     0x133: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.stateOfCharge = (data[0] << 8) + data[1];
+      (defaultProviders[StateOfCharge] as StateOfCharge)
+          .updateData((data[0] << 8) + data[1]);
     }
   });
   static final CanBusDevice lv = CanBusDevice(actions: {
     0x148: (Channel channel, int id, List<int> data) {
-      FrameData.defaultFrame.shutdown = data[0];
+      (defaultProviders[ShutdownState] as ShutdownState).updateData(data[0]);
     }
   });
   static final CanBusDevice imu = CanBusDevice(

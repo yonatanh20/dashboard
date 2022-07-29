@@ -60,19 +60,19 @@ class ShutdownState<int> extends SingleProvider {
   ShutdownState({required super.value});
 }
 
-Map<String, ChangeNotifier> defaultProviders = {
-  "HeatEvac": HeatEvac(value: 0),
-  "OilPressure": OilPressure(value: 0),
-  "SteeringAngle": SteeringAngle(value: 0),
-  "ErrorState": ErrorState(value: 0),
-  "DrivingState": DrivingState(value: 0),
-  "StateOfCharge": StateOfCharge(value: 0),
-  "InverterLMotorTemp": InverterLMotorTemp(value: 0),
-  "InverterRMotorTemp": InverterRMotorTemp(value: 0),
-  "InverterLTemp": InverterLTemp(value: 0),
-  "InverterRTemp": InverterRTemp(value: 0),
-  "ShutdownState": ShutdownState(value: 0),
-  "SpeedometerProvider": SpeedometerProvider(values: {
+Map<Type, ChangeNotifier> defaultProviders = {
+  HeatEvac: HeatEvac(value: 0),
+  OilPressure: OilPressure(value: 0),
+  SteeringAngle: SteeringAngle(value: 0),
+  ErrorState: ErrorState(value: 0),
+  DrivingState: DrivingState(value: 0),
+  StateOfCharge: StateOfCharge(value: 0),
+  InverterLMotorTemp: InverterLMotorTemp(value: 0),
+  InverterRMotorTemp: InverterRMotorTemp(value: 0),
+  InverterLTemp: InverterLTemp(value: 0),
+  InverterRTemp: InverterRTemp(value: 0),
+  ShutdownState: ShutdownState(value: 0),
+  SpeedometerProvider: SpeedometerProvider(values: {
     SpeedometerKeys.gas: 0,
     SpeedometerKeys.breaking: 0,
     SpeedometerKeys.errorState: 0,

@@ -2,8 +2,8 @@ import 'package:dashboard/providers/single-provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Battery extends StatelessWidget {
-  const Battery({
+class BatteryWidget extends StatelessWidget {
+  const BatteryWidget({
     Key? key,
   }) : super(key: key);
 

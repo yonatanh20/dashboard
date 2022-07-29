@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-class Speedometer extends StatelessWidget {
-  const Speedometer({
+class SpeedometerWidget extends StatelessWidget {
+  const SpeedometerWidget({
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class Speedometer extends StatelessWidget {
             maximum: 120,
             radiusFactor: 0.8,
             axisLineStyle: AxisLineStyle(
-                thickness: 15,
+                thickness: 20,
                 thicknessUnit: GaugeSizeUnit.logicalPixel,
                 color: Theme.of(context).primaryColorLight),
             pointers: <GaugePointer>[
@@ -33,6 +33,15 @@ class Speedometer extends StatelessWidget {
                 lengthUnit: GaugeSizeUnit.factor,
                 needleStartWidth: 1,
                 needleEndWidth: 5,
+              ),
+              RangePointer(
+                value:
+                    (speedometerProvider.values[SpeedometerKeys.inverterLRPM] +
+                            speedometerProvider
+                                .values[SpeedometerKeys.inverterRRPM]) *
+                        0.1941,
+                color: Theme.of(context).primaryColorDark,
+                width: 20,
               )
             ],
             annotations: <GaugeAnnotation>[

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Indicator extends StatelessWidget {
-  const Indicator({Key? key}) : super(key: key);
+import '../models/indicator-model.dart';
+
+class IndicatorWidget extends StatelessWidget {
+  final IndicatorModel indicator;
+  const IndicatorWidget({Key? key, required this.indicator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +19,11 @@ class Indicator extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Icon(
-                  Icons.thermostat_auto_sharp,
+                  indicator.icon,
                   size: 60.0,
                   color: Theme.of(context).focusColor,
                 ),
-                Text(""),
+                Text(indicator.text),
               ],
             )));
   }

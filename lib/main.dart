@@ -19,6 +19,7 @@ class DashApp extends StatefulWidget {
 }
 
 class _DashAppState extends State<DashApp> {
+  MaterialColor appColor = Colors.amber;
   @override
   void initState() {
     super.initState();
@@ -39,32 +40,39 @@ class _DashAppState extends State<DashApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: HeatEvac(value: 0)),
-          ChangeNotifierProvider.value(value: OilPressure(value: 0)),
-          ChangeNotifierProvider.value(value: SteeringAngle(value: 0)),
-          ChangeNotifierProvider.value(value: ErrorState(value: 0)),
-          ChangeNotifierProvider.value(value: DrivingState(value: 0)),
-          ChangeNotifierProvider.value(value: StateOfCharge(value: 0)),
-          ChangeNotifierProvider.value(value: InverterLMotorTemp(value: 0)),
-          ChangeNotifierProvider.value(value: InverterRMotorTemp(value: 0)),
-          ChangeNotifierProvider.value(value: InverterLTemp(value: 0)),
-          ChangeNotifierProvider.value(value: InverterRTemp(value: 0)),
-          ChangeNotifierProvider.value(value: ShutdownState(value: 0)),
           ChangeNotifierProvider.value(
-              value: SpeedometerProvider(values: {
-            SpeedometerKeys.gas: 0,
-            SpeedometerKeys.breaking: 0,
-            SpeedometerKeys.errorState: 0,
-            SpeedometerKeys.drivingState: 0,
-            SpeedometerKeys.inverterLRPM: 0,
-            SpeedometerKeys.inverterRRPM: 0,
-          })),
+              value: defaultProviders[HeatEvac] as HeatEvac),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[OilPressure] as OilPressure),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[SteeringAngle] as SteeringAngle),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[ErrorState] as ErrorState),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[DrivingState] as DrivingState),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[StateOfCharge] as StateOfCharge),
+          ChangeNotifierProvider.value(
+              value:
+                  defaultProviders[InverterLMotorTemp] as InverterLMotorTemp),
+          ChangeNotifierProvider.value(
+              value:
+                  defaultProviders[InverterRMotorTemp] as InverterRMotorTemp),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[InverterLTemp] as InverterLTemp),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[InverterRTemp] as InverterRTemp),
+          ChangeNotifierProvider.value(
+              value: defaultProviders[ShutdownState] as ShutdownState),
+          ChangeNotifierProvider.value(
+              value:
+                  defaultProviders[SpeedometerProvider] as SpeedometerProvider),
         ],
         child: MaterialApp(
           title: 'Dashboard',
           theme: ThemeData(
-            primarySwatch: Colors.amber,
-            canvasColor: Colors.amber.shade50,
+            primarySwatch: appColor,
+            canvasColor: appColor.shade50,
             fontFamily: 'Raleway',
           ),
           home: DashScreen(),
