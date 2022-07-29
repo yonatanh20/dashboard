@@ -7,10 +7,6 @@
 
 import 'package:dashboard/models/canbus_devices.dart';
 import 'package:dashboard/models/utils.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
-import 'package:dashboard/main.dart';
 
 void main() {
   String line = "(1658093797.620434) can0 111#121314";
@@ -27,4 +23,5 @@ void main() {
   for (int i = 0; i < lineArgs[3].length; i += 2) {
     data.add(int.tryParse(lineArgs[3].substring(i, i + 2), radix: 16) ?? 0);
   }
+  print("${channel.toShortString()} and $pid");
 }

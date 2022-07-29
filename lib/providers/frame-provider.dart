@@ -25,6 +25,9 @@ class FrameData with ChangeNotifier {
   int inverterLTemp;
   int inverterRTemp;
 
+  //LV
+  int shutdown;
+
   FrameData({
     required this.heatEvac,
     required this.gas,
@@ -41,6 +44,7 @@ class FrameData with ChangeNotifier {
     required this.inverterRMotorTemp,
     required this.inverterLTemp,
     required this.inverterRTemp,
+    required this.shutdown,
   });
 
   void updateData() {
@@ -62,5 +66,6 @@ class FrameData with ChangeNotifier {
       inverterLMotorTemp: 0,
       inverterRMotorTemp: 30,
       inverterLTemp: 0,
-      inverterRTemp: 0);
+      inverterRTemp: 0,
+      shutdown: 1);
 }

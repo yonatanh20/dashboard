@@ -1,4 +1,4 @@
-import 'package:dashboard/providers/frame-provider.dart';
+import 'package:dashboard/providers/single-provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,8 +9,8 @@ class Battery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FrameData>(
-      builder: (context, value, child) => Container(
+    return Consumer<StateOfCharge>(
+      builder: (context, stateOfChargeProvider, child) => Container(
         height: 60,
         width: 200,
         child: Stack(
@@ -24,7 +24,7 @@ class Battery extends StatelessWidget {
               ),
             ),
             FractionallySizedBox(
-              widthFactor: value.stateOfCharge / 100.0,
+              widthFactor: stateOfChargeProvider.value / 100.0,
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -39,7 +39,7 @@ class Battery extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: Text(
-                "${value.stateOfCharge.toStringAsFixed(0)}%",
+                "${stateOfChargeProvider.value.toStringAsFixed(0)}%",
                 textScaleFactor: 3,
               ),
             ),

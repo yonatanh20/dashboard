@@ -1,4 +1,4 @@
-import 'package:dashboard/providers/frame-provider.dart';
+import 'package:dashboard/providers/complex-provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -12,8 +12,8 @@ class Speedometer extends StatelessWidget {
   final double angleFromButtom = 30;
   @override
   Widget build(BuildContext context) {
-    return Consumer<FrameData>(
-      builder: (context, value, child) =>
+    return Consumer<SpeedometerProvider>(
+      builder: (context, speedometerProvider, child) =>
           SfRadialGauge(enableLoadingAnimation: false, axes: <RadialAxis>[
         RadialAxis(
             minimum: 0,
@@ -22,10 +22,14 @@ class Speedometer extends StatelessWidget {
             axisLineStyle: AxisLineStyle(
                 thickness: 15,
                 thicknessUnit: GaugeSizeUnit.logicalPixel,
-                color: Theme.of(context).primaryColorDark),
+                color: Theme.of(context).primaryColorLight),
             pointers: <GaugePointer>[
               NeedlePointer(
-                value: (value.inverterRRPM + value.inverterLRPM) * 0.1941,
+                value:
+                    (speedometerProvider.values[SpeedometerKeys.inverterLRPM] +
+                            speedometerProvider
+                                .values[SpeedometerKeys.inverterRRPM]) *
+                        0.1941,
                 lengthUnit: GaugeSizeUnit.factor,
                 needleStartWidth: 1,
                 needleEndWidth: 5,
@@ -34,7 +38,7 @@ class Speedometer extends StatelessWidget {
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(
                   widget: Text(
-                      '${((value.inverterRRPM + value.inverterLRPM) * 0.1941).toStringAsFixed(0)} KM/h',
+                      '${((speedometerProvider.values[SpeedometerKeys.inverterLRPM] + speedometerProvider.values[SpeedometerKeys.inverterRRPM]) * 0.1941).toStringAsFixed(0)} KM/h',
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold)),
                   angle: 90,
@@ -48,13 +52,13 @@ class Speedometer extends StatelessWidget {
           axisLineStyle: AxisLineStyle(
               thickness: 10,
               thicknessUnit: GaugeSizeUnit.logicalPixel,
-              color: Theme.of(context).primaryColorDark),
+              color: Theme.of(context).primaryColorLight),
           startAngle: 90 + angleFromButtom,
           endAngle: 270 - angleFromTop,
           pointers: [
             RangePointer(
-              value: value.gas.toDouble(),
-              color: Theme.of(context).highlightColor,
+              value: speedometerProvider.values[SpeedometerKeys.gas].toDouble(),
+              color: Theme.of(context).primaryColorDark,
               dashArray: <double>[16, 4],
               width: 15,
             )
@@ -69,15 +73,16 @@ class Speedometer extends StatelessWidget {
           axisLineStyle: AxisLineStyle(
               thickness: 10,
               thicknessUnit: GaugeSizeUnit.logicalPixel,
-              color: Theme.of(context).primaryColorDark),
+              color: Theme.of(context).primaryColorLight),
           startAngle: 270 + angleFromTop,
           endAngle: 90 - angleFromButtom,
           pointers: [
             RangePointer(
-              value: value.breaking.toDouble(),
+              value: speedometerProvider.values[SpeedometerKeys.breaking]
+                  .toDouble(),
               dashArray: <double>[16, 4],
               width: 15,
-              color: Theme.of(context).highlightColor,
+              color: Theme.of(context).primaryColorDark,
             ),
           ],
         )

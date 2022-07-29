@@ -6,28 +6,32 @@ import 'package:dashboard/models/utils.dart';
 import '../models/canbus_devices.dart';
 
 class CanConnection {
-  late final Process _process;
+  late final Process _inputProcess;
+  late final Process _outputProcess;
   final Channel channel;
 
   CanConnection({required this.channel});
 
-  Future<Stream<String>> get lines async {
-    _process = await Process.start(
+  Future<void> setOutput() async {
+    _outputProcess =
+        await Process.start('canstream', [channel.toShortString()]);
+  }
+
+  Future<Stream<String>> get input async {
+    _inputProcess = await Process.start(
         'candump', ["-l", "-L", "-s", "0", channel.toShortString()]);
-    return _process.stdout
+    return _inputProcess.stdout
         .transform(utf8.decoder)
         .transform(const LineSplitter());
   }
 
-  static Future<void> sendFrame(
-      {required Channel channel,
-      required int id,
-      required List<int> data}) async {
+  void sendFrame({required int id, required List<int> data}) {
     String stringData = data.map((e) => e.toRadixString(16)).join();
-    await Process.run('cansend', [channel.toShortString(), '$id#$stringData']);
+    _outputProcess.stdin.writeln('$id#$stringData');
   }
 
   void close() {
-    _process.kill();
+    _inputProcess.kill();
+    _outputProcess.kill();
   }
 }

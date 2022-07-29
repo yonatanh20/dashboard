@@ -3,19 +3,16 @@ import 'dart:async';
 import 'package:dashboard/interfaces/logger.dart';
 import 'package:flutter/material.dart';
 
-import '../providers/frame-provider.dart';
-
 /// Represents MyHomePage class
 class DashScreen extends StatefulWidget {
   /// Creates the instance of MyHomePage
-  //const DashScreen({Key? key}) : super(key: key);
+  const DashScreen({Key? key}) : super(key: key);
 
   @override
   _DashScreenState createState() => _DashScreenState();
 }
 
 class _DashScreenState extends State<DashScreen> {
-  FrameData _frameData = FrameData.defaultFrame;
   final Duration frameSpeed = const Duration(milliseconds: 20);
 
   @override

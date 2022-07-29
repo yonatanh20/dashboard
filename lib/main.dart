@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'interfaces/logger.dart';
-import 'providers/frame-provider.dart';
+import 'providers/complex-provider.dart';
+import 'providers/single-provider.dart';
 import 'screens/dash-screen.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class _DashAppState extends State<DashApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       CanBusData.start();
     });
   }
@@ -39,7 +39,26 @@ class _DashAppState extends State<DashApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: FrameData.defaultFrame)
+          ChangeNotifierProvider.value(value: HeatEvac(value: 0)),
+          ChangeNotifierProvider.value(value: OilPressure(value: 0)),
+          ChangeNotifierProvider.value(value: SteeringAngle(value: 0)),
+          ChangeNotifierProvider.value(value: ErrorState(value: 0)),
+          ChangeNotifierProvider.value(value: DrivingState(value: 0)),
+          ChangeNotifierProvider.value(value: StateOfCharge(value: 0)),
+          ChangeNotifierProvider.value(value: InverterLMotorTemp(value: 0)),
+          ChangeNotifierProvider.value(value: InverterRMotorTemp(value: 0)),
+          ChangeNotifierProvider.value(value: InverterLTemp(value: 0)),
+          ChangeNotifierProvider.value(value: InverterRTemp(value: 0)),
+          ChangeNotifierProvider.value(value: ShutdownState(value: 0)),
+          ChangeNotifierProvider.value(
+              value: SpeedometerProvider(values: {
+            SpeedometerKeys.gas: 0,
+            SpeedometerKeys.breaking: 0,
+            SpeedometerKeys.errorState: 0,
+            SpeedometerKeys.drivingState: 0,
+            SpeedometerKeys.inverterLRPM: 0,
+            SpeedometerKeys.inverterRRPM: 0,
+          })),
         ],
         child: MaterialApp(
           title: 'Dashboard',

@@ -1,18 +1,16 @@
 import 'dart:collection';
 
 import '../models/utils.dart';
-import '../providers/frame-provider.dart';
 import '/interfaces/canbus.dart';
 import '/models/canbus_devices.dart';
 
 class CanBusData {
-  static final CanConnection _canConnection1 =
+  static final CanConnection _canConnection0 =
       CanConnection(channel: Channel.can0);
-  static final CanConnection _canConnection2 =
+  static final CanConnection _canConnection1 =
       CanConnection(channel: Channel.can1);
   static final Map<int, Function(Channel, int, List<int>)> deviceCallbacks =
       HashMap();
-  static FrameData frameData = FrameData.defaultFrame;
   static String deviceName = 'Unkown Device';
   static String desc = '';
 
@@ -21,12 +19,14 @@ class CanBusData {
     for (var device in CanBusDevice.devices) {
       deviceCallbacks.addAll(device.actions);
     }
-    (await _canConnection1.lines).listen((line) {
+    (await _canConnection0.input).listen((line) {
       parseLine(Channel.can0, line);
     });
-    (await _canConnection2.lines).listen((line) {
+    (await _canConnection1.input).listen((line) {
       parseLine(Channel.can1, line);
     });
+    await _canConnection0.setOutput();
+    await _canConnection1.setOutput();
   }
 
   static void parseLine(Channel channel, String line) {
@@ -46,12 +46,10 @@ class CanBusData {
       data.add(int.tryParse(lineArgs[3].substring(i, i + 2), radix: 16) ?? 0);
     }
     deviceCallbacks[pid]?.call(channel, pid, data);
-    frameData.updateData();
-    print(data.toString());
   }
 
   static Future<void> close() async {
+    _canConnection0.close();
     _canConnection1.close();
-    _canConnection2.close();
   }
 }
