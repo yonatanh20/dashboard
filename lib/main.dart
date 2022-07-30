@@ -53,11 +53,9 @@ class _DashAppState extends State<DashApp> {
           ChangeNotifierProvider.value(
               value: defaultProviders[StateOfCharge] as StateOfCharge),
           ChangeNotifierProvider.value(
-              value:
-                  defaultProviders[InverterLMotorTemp] as InverterLMotorTemp),
+              value: defaultProviders[MotorLTemp] as MotorLTemp),
           ChangeNotifierProvider.value(
-              value:
-                  defaultProviders[InverterRMotorTemp] as InverterRMotorTemp),
+              value: defaultProviders[MotorRTemp] as MotorRTemp),
           ChangeNotifierProvider.value(
               value: defaultProviders[InverterLTemp] as InverterLTemp),
           ChangeNotifierProvider.value(

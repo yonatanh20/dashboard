@@ -1,5 +1,4 @@
 import 'package:dashboard/interfaces/logger.dart';
-import 'package:dashboard/models/indicator-model.dart';
 import 'package:dashboard/widgets/battery-widget.dart';
 import 'package:dashboard/widgets/indicator-widget.dart';
 import 'package:flutter/material.dart';
@@ -51,18 +50,10 @@ class _DashScreenState extends State<DashScreen> {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(20.0),
                 children: [
-                  IndicatorWidget(
-                    indicator: indicators[0],
-                  ),
-                  IndicatorWidget(
-                    indicator: indicators[1],
-                  ),
-                  IndicatorWidget(
-                    indicator: indicators[2],
-                  ),
-                  IndicatorWidget(
-                    indicator: indicators[3],
-                  ),
+                  MotorLTempIndicator(),
+                  MotorRTempIndicator(),
+                  InverterLTempIndicator(),
+                  InverterRTempIndicator(),
                 ],
               ))
             ],

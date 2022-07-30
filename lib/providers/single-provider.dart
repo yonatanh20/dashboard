@@ -40,12 +40,12 @@ class StateOfCharge<int> extends SingleProvider {
   StateOfCharge({required super.value});
 }
 
-class InverterLMotorTemp<int> extends SingleProvider {
-  InverterLMotorTemp({required super.value});
+class MotorLTemp<int> extends SingleProvider {
+  MotorLTemp({required super.value});
 }
 
-class InverterRMotorTemp<int> extends SingleProvider {
-  InverterRMotorTemp({required super.value});
+class MotorRTemp<int> extends SingleProvider {
+  MotorRTemp({required super.value});
 }
 
 class InverterLTemp<int> extends SingleProvider {
@@ -67,8 +67,8 @@ Map<Type, ChangeNotifier> defaultProviders = {
   ErrorState: ErrorState(value: 0),
   DrivingState: DrivingState(value: 0),
   StateOfCharge: StateOfCharge(value: 0),
-  InverterLMotorTemp: InverterLMotorTemp(value: 0),
-  InverterRMotorTemp: InverterRMotorTemp(value: 0),
+  MotorLTemp: MotorLTemp(value: 0),
+  MotorRTemp: MotorRTemp(value: 0),
   InverterLTemp: InverterLTemp(value: 0),
   InverterRTemp: InverterRTemp(value: 0),
   ShutdownState: ShutdownState(value: 0),

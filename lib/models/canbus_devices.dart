@@ -47,7 +47,7 @@ class CanBusDevice {
                   SpeedometerKeys.inverterLRPM, (data[2] << 8) + data[1]);
           break;
         case 0x49:
-          (defaultProviders[InverterLMotorTemp] as InverterLMotorTemp)
+          (defaultProviders[MotorLTemp] as MotorLTemp)
               .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
@@ -70,7 +70,7 @@ class CanBusDevice {
                   SpeedometerKeys.inverterRRPM, (data[2] << 8) + data[1]);
           break;
         case 0x49:
-          (defaultProviders[InverterRMotorTemp] as InverterRMotorTemp)
+          (defaultProviders[MotorRTemp] as MotorRTemp)
               .updateData((data[2] << 8) + data[1]);
           //CanConnection.sendFrame(channel: Channel.can1, id: id, data: data);
           break;
