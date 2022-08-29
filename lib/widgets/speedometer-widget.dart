@@ -10,6 +10,7 @@ class SpeedometerWidget extends StatelessWidget {
 
   final double angleFromTop = 30;
   final double angleFromButtom = 30;
+  final double RPMtoKPH = 0.00255; // conversion equation : 2*PI*D/2*RPM/60
   @override
   Widget build(BuildContext context) {
     return Consumer<SpeedometerProvider>(
@@ -29,7 +30,7 @@ class SpeedometerWidget extends StatelessWidget {
                     (speedometerProvider.values[SpeedometerKeys.inverterLRPM] +
                             speedometerProvider
                                 .values[SpeedometerKeys.inverterRRPM]) *
-                        0.1941,
+                        RPMtoKPH,
                 lengthUnit: GaugeSizeUnit.factor,
                 needleStartWidth: 1,
                 needleEndWidth: 5,
@@ -39,7 +40,7 @@ class SpeedometerWidget extends StatelessWidget {
                     (speedometerProvider.values[SpeedometerKeys.inverterLRPM] +
                             speedometerProvider
                                 .values[SpeedometerKeys.inverterRRPM]) *
-                        0.1941,
+                        RPMtoKPH,
                 color: Theme.of(context).primaryColorDark,
                 width: 20,
               )
@@ -47,15 +48,22 @@ class SpeedometerWidget extends StatelessWidget {
             annotations: <GaugeAnnotation>[
               GaugeAnnotation(
                   widget: Text(
-                      '${((speedometerProvider.values[SpeedometerKeys.inverterLRPM] + speedometerProvider.values[SpeedometerKeys.inverterRRPM]) * 0.1941).toStringAsFixed(0)} KM/h',
+                      '${((speedometerProvider.values[SpeedometerKeys.inverterLRPM] + speedometerProvider.values[SpeedometerKeys.inverterRRPM]) * RPMtoKPH).toStringAsFixed(0)} KM/h',
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold)),
                   angle: 90,
-                  positionFactor: 0.7)
+                  positionFactor: 0.7),
+              GaugeAnnotation(
+                  widget: Text(
+                      '${speedometerProvider.values[SpeedometerKeys.drivingState] == 3 ? 'D' : 'N'}',
+                      style: const TextStyle(
+                          fontSize: 40, fontWeight: FontWeight.w500)),
+                  angle: 90,
+                  positionFactor: 0.4),
             ]),
         RadialAxis(
           minimum: 0,
-          maximum: 1000,
+          maximum: 100,
           showLabels: false,
           showTicks: false,
           axisLineStyle: AxisLineStyle(
@@ -75,7 +83,7 @@ class SpeedometerWidget extends StatelessWidget {
         ),
         RadialAxis(
           minimum: 0,
-          maximum: 1000,
+          maximum: 100,
           showLabels: false,
           showTicks: false,
           isInversed: true,

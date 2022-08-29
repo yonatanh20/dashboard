@@ -17,6 +17,8 @@ class IndicatorModel {
 }
 
 Map<Type, IndicatorModel> indicators = {
+  Power: IndicatorModel(
+      min: 0, mid: 70000, max: 80000, icon: Icons.thermostat, text: "Watt"),
   MotorLTemp: IndicatorModel(
       min: 0, mid: 50, max: 100, icon: Icons.thermostat, text: "Left Motor"),
   MotorRTemp: IndicatorModel(

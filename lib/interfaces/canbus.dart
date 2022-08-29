@@ -19,7 +19,7 @@ class CanConnection {
 
   Future<Stream<String>> get input async {
     _inputProcess = await Process.start(
-        'candump', ["-l", "-L", "-s", "0", channel.toShortString()]);
+        'candump', ["-L", "-s", "0", channel.toShortString()]);
     return _inputProcess.stdout
         .transform(utf8.decoder)
         .transform(const LineSplitter());
@@ -27,7 +27,8 @@ class CanConnection {
 
   void sendFrame({required int id, required List<int> data}) {
     String stringData = data.map((e) => e.toRadixString(16)).join();
-    _outputProcess.stdin.writeln('$id#$stringData');
+    _outputProcess.stdin
+        .writeln('${id.toRadixString(16).padLeft(3, '0')}#${stringData}');
   }
 
   void close() {

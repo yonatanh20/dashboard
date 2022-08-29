@@ -24,8 +24,12 @@ class OilPressure<int> extends SingleProvider {
   OilPressure({required super.value});
 }
 
-class SteeringAngle<int> extends SingleProvider {
+class SteeringAngle<double> extends SingleProvider {
   SteeringAngle({required super.value});
+}
+
+class Power<int> extends SingleProvider {
+  Power({required super.value});
 }
 
 class ErrorState<int> extends SingleProvider {
@@ -64,9 +68,10 @@ Map<Type, ChangeNotifier> defaultProviders = {
   HeatEvac: HeatEvac(value: 0),
   OilPressure: OilPressure(value: 0),
   SteeringAngle: SteeringAngle(value: 0),
+  Power: Power(value: 0),
   ErrorState: ErrorState(value: 0),
   DrivingState: DrivingState(value: 0),
-  StateOfCharge: StateOfCharge(value: 0),
+  StateOfCharge: StateOfCharge(value: 0.0),
   MotorLTemp: MotorLTemp(value: 0),
   MotorRTemp: MotorRTemp(value: 0),
   InverterLTemp: InverterLTemp(value: 0),

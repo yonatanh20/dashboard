@@ -19,12 +19,12 @@ class BatteryWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border.all(
                     color: Theme.of(context).backgroundColor, width: 1.0),
-                color: Color.fromRGBO(220, 220, 220, 1),
+                color: Theme.of(context).focusColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
             FractionallySizedBox(
-              widthFactor: stateOfChargeProvider.value / 100.0,
+              widthFactor: stateOfChargeProvider.value,
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -39,7 +39,7 @@ class BatteryWidget extends StatelessWidget {
               ),
               alignment: Alignment.center,
               child: Text(
-                "${stateOfChargeProvider.value.toStringAsFixed(0)}%",
+                "${(stateOfChargeProvider.value * 100.0).toStringAsFixed(0)}%",
                 textScaleFactor: 3,
               ),
             ),

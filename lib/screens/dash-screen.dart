@@ -50,10 +50,11 @@ class _DashScreenState extends State<DashScreen> {
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(20.0),
                 children: [
+                  PowerIndicator(),
                   MotorLTempIndicator(),
                   MotorRTempIndicator(),
                   InverterLTempIndicator(),
-                  InverterRTempIndicator(),
+                  //InverterRTempIndicator(),
                 ],
               ))
             ],

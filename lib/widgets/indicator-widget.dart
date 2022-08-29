@@ -5,13 +5,18 @@ import '../providers/single-provider.dart';
 
 class IndicatorWidget extends StatelessWidget {
   final IndicatorModel indicator;
-  const IndicatorWidget({Key? key, required this.indicator}) : super(key: key);
+  final SingleProvider provider;
+  const IndicatorWidget(
+      {Key? key, required this.indicator, required this.provider})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GridTile(
       child: Card(
-          color: Theme.of(context).primaryColorLight,
+          color: provider.value <= indicator.mid
+              ? Theme.of(context).primaryColorLight
+              : Theme.of(context).primaryColorDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
@@ -23,12 +28,29 @@ class IndicatorWidget extends StatelessWidget {
               Icon(
                 indicator.icon,
                 size: 60.0,
-                color: Theme.of(context).focusColor,
+                color: provider.value < indicator.min
+                    ? Theme.of(context).focusColor
+                    : provider.value > indicator.max
+                        ? Theme.of(context).errorColor
+                        : Theme.of(context).primaryColor,
               ),
-              Text(indicator.text),
+              Text('${indicator.text} ${provider.value}'),
             ],
           )),
     );
+  }
+}
+
+class PowerIndicator extends StatelessWidget {
+  const PowerIndicator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Power>(
+        builder: (context, provider, child) => IndicatorWidget(
+              indicator: indicators[Power]!,
+              provider: provider,
+            ));
   }
 }
 
@@ -38,8 +60,9 @@ class InverterLTempIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<InverterLTemp>(
-        builder: (context, stateOfChargeProvider, child) => IndicatorWidget(
+        builder: (context, provider, child) => IndicatorWidget(
               indicator: indicators[InverterLTemp]!,
+              provider: provider,
             ));
   }
 }
@@ -50,8 +73,9 @@ class InverterRTempIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<InverterRTemp>(
-        builder: (context, stateOfChargeProvider, child) => IndicatorWidget(
+        builder: (context, provider, child) => IndicatorWidget(
               indicator: indicators[InverterRTemp]!,
+              provider: provider,
             ));
   }
 }
@@ -62,8 +86,9 @@ class MotorLTempIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MotorLTemp>(
-        builder: (context, stateOfChargeProvider, child) => IndicatorWidget(
+        builder: (context, provider, child) => IndicatorWidget(
               indicator: indicators[MotorLTemp]!,
+              provider: provider,
             ));
   }
 }
@@ -74,8 +99,9 @@ class MotorRTempIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<MotorRTemp>(
-        builder: (context, stateOfChargeProvider, child) => IndicatorWidget(
+        builder: (context, provider, child) => IndicatorWidget(
               indicator: indicators[MotorRTemp]!,
+              provider: provider,
             ));
   }
 }

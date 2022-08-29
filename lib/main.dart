@@ -46,6 +46,7 @@ class _DashAppState extends State<DashApp> {
               value: defaultProviders[OilPressure] as OilPressure),
           ChangeNotifierProvider.value(
               value: defaultProviders[SteeringAngle] as SteeringAngle),
+          ChangeNotifierProvider.value(value: defaultProviders[Power] as Power),
           ChangeNotifierProvider.value(
               value: defaultProviders[ErrorState] as ErrorState),
           ChangeNotifierProvider.value(

@@ -5,9 +5,9 @@ import '/interfaces/canbus.dart';
 import '/models/canbus_devices.dart';
 
 class CanBusData {
-  static final CanConnection _canConnection0 =
+  static final CanConnection canConnection0 =
       CanConnection(channel: Channel.can0);
-  static final CanConnection _canConnection1 =
+  static final CanConnection canConnection1 =
       CanConnection(channel: Channel.can1);
   static final Map<int, Function(Channel, int, List<int>)> deviceCallbacks =
       HashMap();
@@ -19,14 +19,14 @@ class CanBusData {
     for (var device in CanBusDevice.devices) {
       deviceCallbacks.addAll(device.actions);
     }
-    (await _canConnection0.input).listen((line) {
+    await canConnection0.setOutput();
+    await canConnection1.setOutput();
+    (await canConnection0.input).listen((line) {
       parseLine(Channel.can0, line);
     });
-    (await _canConnection1.input).listen((line) {
+    (await canConnection1.input).listen((line) {
       parseLine(Channel.can1, line);
     });
-    await _canConnection0.setOutput();
-    await _canConnection1.setOutput();
   }
 
   static void parseLine(Channel channel, String line) {
@@ -49,7 +49,7 @@ class CanBusData {
   }
 
   static Future<void> close() async {
-    _canConnection0.close();
-    _canConnection1.close();
+    canConnection0.close();
+    canConnection1.close();
   }
 }
